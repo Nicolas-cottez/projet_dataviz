@@ -1,0 +1,76 @@
+# Fichiers et dossiers Python standards
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+*.env
+*.venv
+env/
+venv/
+ENV/
+build/
+dist/
+.eggs/
+*.egg-info/
+*.egg
+.cache/
+.pytest_cache/
+
+# Configs d’environnement et d’IDE
+*.env
+*.env.local
+*.vscode/
+.idea/
+*.DS_Store
+
+# Fichiers de logs et temporaires
+*.log
+*.tmp
+*.bak
+
+# Données et sorties
+*.csv
+*.tsv
+*.dat
+*.db
+*.sqlite3
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Autres fichiers à ignorer
+*.coverage
+htmlcov/
+.mypy_cache/
+
+# --- Python cache & environment ---
+_pycache_/
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv
+venv/
+ENV/
+projetdataviz/
+# --- IDE / system files ---
+.vscode/
+.DS_Store
+Thumbs.db
+
+# --- Notebooks checkpoints ---
+.ipynb_checkpoints/
+
+# --- Data files to ignore ---
+data/raw/online_retail_II.csv
+data/raw/online_retail_II.xlsx
+data/raw/*.csv
+data/raw/*.xlsx
+
+# --- Other generated data ---
+data/processed/*.parquet
+data/processed/*.csv
+
+# --- Streamlit cache ---
+.streamlit/
