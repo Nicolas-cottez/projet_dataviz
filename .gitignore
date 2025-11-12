@@ -43,3 +43,34 @@ dist/
 *.coverage
 htmlcov/
 .mypy_cache/
+
+# --- Python cache & environment ---
+_pycache_/
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv
+venv/
+ENV/
+
+# --- IDE / system files ---
+.vscode/
+.DS_Store
+Thumbs.db
+
+# --- Notebooks checkpoints ---
+.ipynb_checkpoints/
+
+# --- Data files to ignore ---
+data/raw/online_retail_II.csv
+data/raw/online_retail_II.xlsx
+data/raw/*.csv
+data/raw/*.xlsx
+
+# --- Other generated data ---
+data/processed/*.parquet
+data/processed/*.csv
+
+# --- Streamlit cache ---
+.streamlit/
