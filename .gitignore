@@ -53,7 +53,7 @@ _pycache_/
 .venv
 venv/
 ENV/
-
+projetdataviz/
 # --- IDE / system files ---
 .vscode/
 .DS_Store
