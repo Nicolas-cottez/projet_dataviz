@@ -30,20 +30,19 @@ segment_agg['Share of Revenue'] = segment_agg['Monetary'] / segment_agg['Monetar
 # Display Summary
 st.subheader("Vue d'ensemble des Segments")
 
-col1, col2 = st.columns([2, 1])
 
-with col1:
-    st.dataframe(segment_agg.style.format({
-        'Recency': '{:.1f} jours',
-        'Frequency': '{:.1f}',
-        'Monetary': '£{:,.0f}',
-        'Avg Order Value': '£{:,.2f}',
-        'Share of Revenue': '{:.1%}'
-    }), use_container_width=True)
 
-with col2:
-    fig_pie = px.pie(segment_agg, values='Count', names=segment_agg.index, title="Répartition des Clients")
-    st.plotly_chart(fig_pie, use_container_width=True)
+st.dataframe(segment_agg.style.format({
+    'Recency': '{:.1f} jours',
+    'Frequency': '{:.1f}',
+    'Monetary': '£{:,.0f}',
+    'Avg Order Value': '£{:,.2f}',
+    'Share of Revenue': '{:.1%}'
+}), width='stretch')
+
+
+fig_pie = px.pie(segment_agg, values='Count', names=segment_agg.index, title="Répartition des Clients")
+st.plotly_chart(fig_pie, use_container_width=True)
 
 # Treemap of Value
 st.subheader("Valeur par Segment")
@@ -57,4 +56,4 @@ st.plotly_chart(fig_tree, use_container_width=True)
 # Detailed List
 with st.expander("Voir les détails des clients par segment"):
     selected_seg = st.selectbox("Choisir un segment :", segment_agg.index)
-    st.dataframe(rfm_df[rfm_df['Segment'] == selected_seg][['Recency', 'Frequency', 'Monetary', 'RFM_Score']].sort_values('Monetary', ascending=False))
+    st.dataframe(rfm_df[rfm_df['Segment'] == selected_seg][['Recency', 'Frequency', 'Monetary', 'RFM_Score']].sort_values('Monetary', ascending=False), width='stretch')

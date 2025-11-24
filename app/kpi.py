@@ -51,8 +51,20 @@ st.caption("Indicateur clé de la valeur générée par chaque client actif sur 
 
 # Visual Trends
 st.subheader("Tendances")
-daily_sales = filtered_df.groupby('InvoiceDate')['TotalAmount'].sum().reset_index()
-fig = px.line(daily_sales, x='InvoiceDate', y='TotalAmount', title='Évolution du CA Quotidien')
+time_unit = st.session_state.get('time_unit', 'Mois')
+
+if time_unit == 'Mois':
+    filtered_df['Period'] = filtered_df['InvoiceDate'].dt.to_period('M').astype(str)
+    title_suffix = "Mensuel"
+elif time_unit == 'Trimestre':
+    filtered_df['Period'] = filtered_df['InvoiceDate'].dt.to_period('Q').astype(str)
+    title_suffix = "Trimestriel"
+else:
+    filtered_df['Period'] = filtered_df['InvoiceDate'].dt.date
+    title_suffix = "Quotidien"
+
+sales_trend = filtered_df.groupby('Period')['TotalAmount'].sum().reset_index()
+fig = px.line(sales_trend, x='Period', y='TotalAmount', title=f'Évolution du CA {title_suffix}')
 st.plotly_chart(fig, use_container_width=True)
 
 # Definitions

@@ -33,7 +33,7 @@ else:
 cols = ['Recency', 'Frequency', 'Monetary', 'RFM_Score', 'Segment', 'RFM_Segment']
 display_df = display_df[cols].sort_values('Monetary', ascending=False)
 
-st.dataframe(display_df, use_container_width=True)
+st.dataframe(display_df, width='stretch')
 
 # Export Button
 csv = display_df.to_csv().encode('utf-8')
