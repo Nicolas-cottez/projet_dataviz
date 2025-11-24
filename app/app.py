@@ -1,6 +1,15 @@
 import streamlit as st
 
-pg = st.navigation([st.Page("kpi.py"), st.Page("cohortes.py"), st.Page("segments.py")])
-pg.run()
+st.set_page_config(page_title="Marketing Decision Support", layout="wide")
 
-# streamlit run app/app.py
+# Define pages
+pages = [
+    st.Page("kpi.py", title="KPIs (Overview)", icon="📊"),
+    st.Page("cohortes.py", title="Cohortes (Diagnostiquer)", icon="🔍"),
+    st.Page("segments.py", title="Segments (Prioriser)", icon="🎯"),
+    st.Page("scenarios.py", title="Scénarios (Simuler)", icon="🎛️"),
+    st.Page("action_plan.py", title="Plan d'Action (Exporter)", icon="📥"),
+]
+
+pg = st.navigation(pages)
+pg.run()
