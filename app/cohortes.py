@@ -47,14 +47,32 @@ st.plotly_chart(fig, use_container_width=True)
 st.subheader("Revenu par Cohorte")
 
 # Calculate revenue per cohort per month
-# Calculate revenue per cohort per month
 filtered_df = utils.add_cohort_columns(filtered_df)
 cohort_revenue = filtered_df.groupby(['CohortMonth', 'CohortIndex'])['TotalAmount'].sum().reset_index()
 cohort_revenue['CohortMonth'] = cohort_revenue['CohortMonth'].astype(str)
 
-fig_rev = px.line(cohort_revenue, x='CohortIndex', y='TotalAmount', color='CohortMonth',
-                  title="Évolution du CA par Cohorte (en valeur absolue)",
-                  labels={'CohortIndex': 'Mois après acquisition', 'TotalAmount': 'Revenu (£)'})
+# Merge with cohort sizes to calculate average
+cohort_sizes_df = cohort_sizes.reset_index()
+cohort_sizes_df.columns = ['CohortMonth', 'CohortSize']
+cohort_sizes_df['CohortMonth'] = cohort_sizes_df['CohortMonth'].astype(str)
+cohort_revenue = cohort_revenue.merge(cohort_sizes_df, on='CohortMonth')
+cohort_revenue['AvgRevenue'] = cohort_revenue['TotalAmount'] / cohort_revenue['CohortSize']
+
+# Toggle for Metric
+metric_option = st.radio("Métrique :", ["Chiffre d'Affaires Total", "Revenu Moyen par Client (Densité)"], horizontal=True)
+
+if metric_option == "Chiffre d'Affaires Total":
+    y_col = 'TotalAmount'
+    title = "Évolution du CA par Cohorte (Total)"
+    y_label = "Revenu Total (£)"
+else:
+    y_col = 'AvgRevenue'
+    title = "Densité de Revenu par Cohorte (CA Moyen par Client)"
+    y_label = "Revenu Moyen (£)"
+
+fig_rev = px.line(cohort_revenue, x='CohortIndex', y=y_col, color='CohortMonth',
+                  title=title,
+                  labels={'CohortIndex': 'Mois après acquisition', y_col: y_label})
 st.plotly_chart(fig_rev, use_container_width=True)
 
 # Focus Cohorte
